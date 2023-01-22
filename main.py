@@ -7,16 +7,14 @@ public_key, private_key = rsa.newkeys(512)
 def encrypt(message, enc_message):
     enc = rsa.encrypt(message.encode(), public_key)
 
-    new_enc = enc.replace(b"\n", b"")
+    new_enc = enc.replace(b"\n", b"").replace(b"\r", b"")
     enc_message.set(new_enc)
-    print(new_enc)
     return enc
 
 
 def decrypt(enc, dec_message):
     dec = rsa.decrypt(enc, private_key)
     dec_message.set(dec.decode())
-    print(dec)
 
 
 def func(message, enc_message, dec_message):
@@ -41,7 +39,7 @@ def main():
     button = tk.Button(text="Encrypt", command=lambda: func(text.get(), enc_message, dec_message))
     button.pack(side="bottom", fill="x", padx=10, pady=10)
     entry = tk.Entry(textvariable=text)
-    entry.bind("<Return>", lambda event: encrypt(text.get(), enc_message))
+    entry.bind("<Return>", lambda event: func(text.get(), enc_message, dec_message))
     entry.pack(side="bottom", fill="x", padx=10)
     win.mainloop()
 
