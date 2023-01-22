@@ -2,6 +2,7 @@ import tkinter as tk
 import rsa
 
 public_key, private_key = rsa.newkeys(512)
+COLOR = "#d28536"
 
 
 def encrypt(message, enc_message):
@@ -25,22 +26,33 @@ def func(message, enc_message, dec_message):
 def main():
     win = tk.Tk()
     win.title("RSA encryption")
-    win.geometry("500x300")
+    win.geometry("650x350")
+    win.config(bg=COLOR)
     text = tk.StringVar()
     enc_message = tk.StringVar()
     dec_message = tk.StringVar()
 
-    original_text_label = tk.Label(textvariable=text)
-    original_text_label.pack(side="top", padx=10, pady=10, fill="x")
-    enc_label = tk.Label(textvariable=enc_message)
-    enc_label.pack(side="top", padx=10, pady=10, fill="x")
-    dec_label = tk.Label(textvariable=dec_message)
-    dec_label.pack(side="top", padx=10, pady=10, fill="x")
-    button = tk.Button(text="Encrypt", command=lambda: func(text.get(), enc_message, dec_message))
+    original_text_title_label = tk.Label(text="original text:", font=("Ariel", "11", "bold"), bg=COLOR)
+    original_text_title_label.pack(side="top", padx=10, pady=10, fill="x")
+    original_text_label = tk.Label(textvariable=text, font=("Ariel", "11", "italic"), bg=COLOR)
+    original_text_label.pack(side="top", padx=10, fill="x")
+
+    enc_title_label = tk.Label(text="encrypted text (RSA):", font=("Ariel", "11", "bold"), bg=COLOR)
+    enc_title_label.pack(side="top", padx=10, pady=10, fill="x")
+    enc_label = tk.Label(textvariable=enc_message, font=("Ariel", "11", "italic"), bg=COLOR)
+    enc_label.pack(side="top", padx=10, fill="x")
+
+    dec_title_label = tk.Label(text="decrypted text:", font=("Ariel", "11", "bold"), bg=COLOR)
+    dec_title_label.pack(side="top", padx=10, pady=10, fill="x")
+    dec_label = tk.Label(textvariable=dec_message, font=("Ariel", "11", "italic"), bg=COLOR)
+    dec_label.pack(side="top", padx=10, fill="x")
+
+    button = tk.Button(text="Encrypt", command=lambda: func(text.get(), enc_message, dec_message), bd=4, bg="#a57699")
     button.pack(side="bottom", fill="x", padx=10, pady=10)
     entry = tk.Entry(textvariable=text)
     entry.bind("<Return>", lambda event: func(text.get(), enc_message, dec_message))
     entry.pack(side="bottom", fill="x", padx=10)
+
     win.mainloop()
 
 
