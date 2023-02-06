@@ -1,8 +1,8 @@
 import tkinter as tk
-import rsa
 import os
 
 os.system("pip3 install rsa")
+import rsa  # NOQA: E402
 
 public_key, private_key = rsa.newkeys(2048)
 COLOR = "#d28536"
